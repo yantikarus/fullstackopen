@@ -12,10 +12,12 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
   const points = Array(anecdotes.length).fill(0)
-  // const copy =[...points]
   const [selected, setSelected] = useState(0)
   const [point, setPoints] = useState(points)
   const copy =[...point]
+  const highPoint = Math.max(...copy)
+  const highestPointIndex = copy.indexOf(highPoint)
+  
 
   const nextAnecdote = ()=>{
     let i = Math.floor(Math.random() * 8)
@@ -29,10 +31,14 @@ const App = () => {
 
   return (
     <div>
+      <h5>Anecdote of the day</h5>
       <p>{anecdotes[selected]}</p>
       <p>has {point[selected]} votes</p>
       <button onClick={vote}>vote</button>
       <button onClick={nextAnecdote}>next Anecdote</button>
+      <h5>Anecdote with most vote</h5>
+      <p>{anecdotes[highestPointIndex]}</p>
+      <p>has {highPoint} votes</p>
     </div>
   );
 }
