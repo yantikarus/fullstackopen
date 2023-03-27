@@ -31,12 +31,12 @@ const App = () => {
 
   return (
     <div>
-      <h5>Anecdote of the day</h5>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
       <p>has {point[selected]} votes</p>
       <button onClick={vote}>vote</button>
       <button onClick={nextAnecdote}>next Anecdote</button>
-      <h5>Anecdote with most vote</h5>
+      <h2>Anecdote with most vote</h2>
       <p>{anecdotes[highestPointIndex]}</p>
       <p>has {highPoint} votes</p>
     </div>
