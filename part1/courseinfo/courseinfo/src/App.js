@@ -18,17 +18,12 @@ const Part = (props) => {
 }
 
 const Content = (props) => {
-  const [first, second, third, fourth] = props.parts
 
   return (
     <div>
-    {/* {props.parts.map(item =>{
-      return <Part name={item.name} exercises={item.exercises}/>
-    })} */}
-      <Part name={first.name} exercises={first.exercises}/>
-      <Part name={second.name} exercises={second.exercises}/>
-      <Part name={third.name} exercises={third.exercises}/>
-      <Part name={fourth.name} exercises={fourth.exercises}/>
+    {props.parts.map(item =>{
+      return <Part name={item.name} exercises={item.exercises} key={item.id}/>
+    })}
     </div>
   )
 }
@@ -42,43 +37,67 @@ const Total = ({parts}) => {
     </div>
   )
 }
-const Course = ({course}) => {
+const Course = ({courses}) => {
   return (
     <div>
-      <Header course ={course}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>  
+      <Header course ={courses}/>
+      <Content parts={courses.parts}/>
+      <Total parts={courses.parts}/>  
     </div>
   )
 }
 
 
 const App = () => {
-  const course = {
+  const courses = [
+    {
     id:1,
     name: "Half Stack application development",
     parts: [
   {
       name: "Fundamentals of React",
-      exercises:10
+      exercises:10,
+      id:1
   },
   {
     name: "Using props to pass data",
-    exercises:7
+    exercises:7,
+    id:2
   },
  {
     name: "State of a component",
-    exercises:14
+    exercises:14,
+    id:3
   },
   {
     name: "Redux",
-    exercises:11
+    exercises:11,
+    id:4
   }
 ]
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
+      }
+    ]
   }
+]
   return (
     <div>
-      <Course course={course}/>
+      {courses.map(course=> {
+        return <Course courses={course} key={course.id}/>
+      } )}
     </div>
   );
 }
