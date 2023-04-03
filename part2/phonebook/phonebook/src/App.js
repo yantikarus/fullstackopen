@@ -11,9 +11,8 @@ const App = () => {
   //Handle form input element
   const [newName, setNewName] =useState('')
   const [newNumbers, setNewNumbers] =useState(0)
-
-  let displayNumber = persons.map(x=> <li key={x.name}>{x.name} {x.number}</li>)
-
+  const [search, setSearch] = useState('')
+  const [showFiltered, setShowFiltered] = useState(true)
 
   const addPerson =(event)=> {
     event.preventDefault()
@@ -43,14 +42,12 @@ const App = () => {
     setNewNumbers(event.target.value)
   }
   const handleFilterInput = (event) =>{
-    const search = event.target.value
-    // const filtered = persons.filter(x => x.name.includes(search))
-    // console.log("i am searching for", search)
-    // console.log("result", filtered)
-    displayNumber = persons.filter(x => x.name.includes(search))
-    console.log(displayNumber)
+    setSearch(event.target.value)
+    setShowFiltered(true)
+    console.log(search)
 
   }
+  const nameToShow = showFiltered ? persons.filter(x =>  x.name.toLowerCase().includes(search)) : persons
 
 
   return (
@@ -74,7 +71,7 @@ const App = () => {
     
       <h2>Numbers</h2>
       <ul>
-      {displayNumber}
+      {nameToShow.map(x=> <li key={x.name}>{x.name} {x.number}</li>)}
       </ul>
     </div>
   )
