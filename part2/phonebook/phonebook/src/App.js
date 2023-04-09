@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import personService from './services/personService'
@@ -12,6 +13,8 @@ const App = () => {
   const [newNumbers, setNewNumbers] =useState(0)
   const [search, setSearch] = useState('')
   const [showFiltered, setShowFiltered] = useState(true)
+  const [notificationMsg, setNotificationMsg] = useState('some notifications..')
+  const [colorClass, setColorClass] = useState('..')
 
   useEffect(()=>{
     personService
@@ -32,8 +35,15 @@ const App = () => {
           personService
           .update(exist.id, changeNumber)
           .then(returnedPerson => {
-            setPersons(persons.map(n => n.id !==exist.id ? n : returnedPerson))}
+            setPersons(persons.map(n => n.id !==exist.id ? n : returnedPerson))
+            setNotificationMsg(`Updated ${returnedPerson.name}'s number`)
+            setColorClass("showmessage")
+            setTimeout(()=>{
+              setNotificationMsg(null)
+          }, 5000)
+          }
           )
+
         }
       setNewName(" ")
       setNewNumbers(0)
@@ -49,6 +59,11 @@ const App = () => {
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
         console.log(returnedPerson)
+        setNotificationMsg(`Added ${returnedPerson.name}`)
+        setColorClass("showmessage")
+        setTimeout(()=>{
+          setNotificationMsg(null)
+        }, 5000)
         setNewName(" ")
         setNewNumbers(0)
       })
@@ -78,7 +93,22 @@ const App = () => {
       const updatePerson = persons.filter(x=> x.id !==id)
       personService
       .remove(id)
-      .then(setPersons(updatePerson))
+      .then(setPersons(updatePerson),
+        setNotificationMsg(`Deleted ${name}`),
+        setColorClass("showmessage"),
+        setTimeout(()=>{
+        setNotificationMsg(null)
+      }, 5000)
+      )
+      .catch(error => {
+        setNotificationMsg(`'${name} ' was already deleted from server`)
+        setColorClass("showwarning")
+        setTimeout(()=>{
+          setNotificationMsg(null)
+        }, 5000)
+        setPersons(persons.filter(x=> x.id !==id))
+      })
+      
     }
     else(
       console.log("user exit")
@@ -90,6 +120,7 @@ const App = () => {
   return (
      <div>
       <h2>Phonebook</h2>
+        <Notification message={notificationMsg} result={colorClass}/>
         <Filter handleChange={handleFilterInput}/>
         <h3>add a new</h3>
         <PersonForm name={newName} submitHandler={addPerson} handleNameChange={handleInputChange} numbers={newNumbers} handleNewNumber={handleNewNumber}/>

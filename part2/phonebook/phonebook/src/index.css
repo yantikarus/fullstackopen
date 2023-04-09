@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+body{
+   background-color: #F9E2AF;
+   font-family: "Open Sans", sans-serif;
+}
+.showmessage {
+    border: 2px solid #009FBD;
+    color: white;
+    background-color: #009FBD;
+    padding:10px;
+    border-radius: 10px;
+    margin-bottom: 10px;;
+}
+.showwarning {
+    border: 2px solid red;
+    color: red;
+    background-color: whitesmoke;
+    padding:10px;
+    border-radius: 10px;
+    margin-bottom: 10px;;
+}
