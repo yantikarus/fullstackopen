@@ -11,9 +11,13 @@ const SingleLanguage = ({info})=>{
 }
 
 const SingleCountry = (props)=>{
+
   console.log(props)
   return(
+    <>
     <li>{props.name}</li>
+    <button>show</button>
+    </>
   )
 }
 
@@ -22,6 +26,7 @@ const SingleCountry = (props)=>{
 const CountryInfo =({info})=>{
   const country = info[0]
   const languages= country.languages
+  console.log(country.flags.png)
 
   return(
     <div>
@@ -32,6 +37,7 @@ const CountryInfo =({info})=>{
       <ul>
         {Object.values(languages).map(x=><SingleLanguage info={x} key={x}/>)}
       </ul>
+      <img src={country.flags.png} alt={country.flags.alt} />
     </div>
   )
 }
@@ -60,11 +66,8 @@ const App = () => {
     <div>
       <p>find countries</p>
       <input value={search} onChange={handleInput}/>
-      {/* <p>{nameToShow.length >10 ? answer: nameToShow.map(x=> x.name["common"])} </p> */}
-      <p>{nameToShow.length >10 ? answer: nameToShow.map(x =><SingleCountry name={x.name["common"]} key={x.name["common"]}/>
-  
-        )} </p>
-      <div>{nameToShow.length ===1 ? <CountryInfo info={nameToShow}/>: null} </div>
+      <div>{nameToShow.length >10 ? answer: nameToShow.length ===1 ? <CountryInfo info={nameToShow}/>: nameToShow.map(x =><SingleCountry name={x.name["common"]} key={x.name["common"]}/>
+        )} </div>
       </div>
   )
 }
