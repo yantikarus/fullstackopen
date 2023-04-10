@@ -4,19 +4,16 @@ import axios from 'axios'
 
 
 const SingleLanguage = ({info})=>{
-  console.log(info)
   return(
     <li>{info}</li>
   )
 }
 
-const SingleCountry = (props)=>{
-
-  console.log(props)
+const SingleCountry = ({info, name, handleClick})=>{
   return(
     <>
-    <li>{props.name}</li>
-    <button>show</button>
+    <li>{name}<button onClick={()=>handleClick(info)}>show</button></li>
+    
     </>
   )
 }
@@ -24,9 +21,8 @@ const SingleCountry = (props)=>{
 
 
 const CountryInfo =({info})=>{
-  const country = info[0]
+  const country = info
   const languages= country.languages
-  console.log(country.flags.png)
 
   return(
     <div>
@@ -45,9 +41,14 @@ const CountryInfo =({info})=>{
 const App = () => {
   const [countries, setCountries] = useState([])
   const [search, setSearch] = useState('')
+  const [showButton, setShowButton] = useState("")
 
   const handleInput =(event)=>{
     setSearch(event.target.value)
+    if(event.target.value.length===0){
+      setShowButton("")
+    }
+    
   }
   useEffect(()=>{
     axios
@@ -59,15 +60,19 @@ const App = () => {
     },[])
 
   const nameToShow =countries.filter(x =>  x.name["common"].toLowerCase().includes(search))
-
   let answer = "Too many matches, specify another filter"
+
+  const handleClick=(info)=>{
+    setShowButton(info) 
+  }
 
   return (
     <div>
       <p>find countries</p>
       <input value={search} onChange={handleInput}/>
-      <div>{nameToShow.length >10 ? answer: nameToShow.length ===1 ? <CountryInfo info={nameToShow}/>: nameToShow.map(x =><SingleCountry name={x.name["common"]} key={x.name["common"]}/>
+      <div>{nameToShow.length >10 ? answer: nameToShow.length ===1 ? <CountryInfo info={nameToShow[0]}/>: nameToShow.map(x =><SingleCountry info={x}name={x.name["common"]} key={x.name["common"]} handleClick={handleClick}/>
         )} </div>
+        <div>{showButton ? <CountryInfo info={showButton}/>: null}</div>
       </div>
   )
 }
