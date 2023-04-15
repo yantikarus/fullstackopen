@@ -10,10 +10,10 @@ const App = () => {
   const [persons, setPersons] = useState([])
   //Handle form input element
   const [newName, setNewName] =useState('')
-  const [newNumbers, setNewNumbers] =useState(0)
+  const [newNumbers, setNewNumbers] =useState('')
   const [search, setSearch] = useState('')
   const [showFiltered, setShowFiltered] = useState(true)
-  const [notificationMsg, setNotificationMsg] = useState('some notifications..')
+  const [notificationMsg, setNotificationMsg] = useState('')
   const [colorClass, setColorClass] = useState('..')
 
   useEffect(()=>{
@@ -46,7 +46,7 @@ const App = () => {
 
         }
       setNewName(" ")
-      setNewNumbers(0)
+      setNewNumbers(" ")
       return
     }
     else{
@@ -65,7 +65,7 @@ const App = () => {
           setNotificationMsg(null)
         }, 5000)
         setNewName(" ")
-        setNewNumbers(0)
+        setNewNumbers(" ")
       })
 
       // setPersons(persons.concat(newPerson))
@@ -122,7 +122,7 @@ const App = () => {
       <h2>Phonebook</h2>
         <Notification message={notificationMsg} result={colorClass}/>
         <Filter handleChange={handleFilterInput}/>
-        <h3>add a new</h3>
+        <h3>Add a new</h3>
         <PersonForm name={newName} submitHandler={addPerson} handleNameChange={handleInputChange} numbers={newNumbers} handleNewNumber={handleNewNumber}/>
       <h2>Numbers</h2>
       <ul>
