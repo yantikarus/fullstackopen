@@ -70,6 +70,9 @@ const App = () => {
       .catch(error=>{
         setNotificationMsg(error.response.data.error)
         setColorClass("showwarning")
+        setTimeout(()=>{
+          setNotificationMsg(null)
+        }, 5000)
         console.log(error.response.data.error)
       })
 
