@@ -69,6 +69,7 @@ const App = () => {
       })
       .catch(error=>{
         setNotificationMsg(error.response.data.error)
+        setColorClass("showwarning")
         console.log(error.response.data.error)
       })
 
