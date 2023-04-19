@@ -85,7 +85,7 @@ const App = () => {
   }
 
   const handleNewNumber= (event)=>{
-    setNewNumbers(event.target.value)
+    setNewNumbers(event.target.value.trim())
   }
   const handleFilterInput = (event) =>{
     setSearch(event.target.value)
